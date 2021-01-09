@@ -1,14 +1,87 @@
-<!Document html>
+<!DOCTYPE html>
+<html>
 <head>
+	<title>Table sorting ascending and descending</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 
 </head>
-<body>
+<body class="container" style="background: aliceblue;">
+	<h1>Table sorting ascending and descending</h1>
 
+      <table class="table table-bordered table-responsive" id="mytable"><thead>
+      <tr>
+         <th id="sl" style="cursor: pointer;">S.L.</th>
+         <th id="nm" style="cursor: pointer;">name</th>
+      </tr>
+     </thead>
+    <tbody>
+      <tr>
+         <td>1</td>
+         <td>Ronaldo</td>
+      </tr>
+      <tr>
+         <td>2</td>
+         <td>Messi</td>
+      </tr>
+      <tr>
+         <td>3</td>
+         <td>Ribery</td>
+      </tr>
+      <tr>
+         <td>20</td>
+         <td>Bale</td>
+      </tr>
+    </tbody>
+     </table>
 
+<script type="text/javascript">
+	function sortTable(f,n){
+	var rows = $('#mytable tbody  tr').get();
+
+	rows.sort(function(a, b) {
+
+		var A = getVal(a);
+		var B = getVal(b);
+
+		if(A < B) {
+			return -1*f;
+		}
+		if(A > B) {
+			return 1*f;
+		}
+		return 0;
+	});
+
+	function getVal(elm){
+		var v = $(elm).children('td').eq(n).text().toUpperCase();
+		if($.isNumeric(v)){
+			v = parseInt(v,10);
+		}
+		return v;
+	}
+
+	$.each(rows, function(index, row) {
+		$('#mytable').children('tbody').append(row);
+	});
+}
+var f_sl = 1;
+var f_nm = 1;
+$("#sl").click(function(){
+    f_sl *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_sl,n);
+});
+$("#nm").click(function(){
+    f_nm *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_nm,n);
+});
+</script>
 
 </body>
-
-
 </html>
